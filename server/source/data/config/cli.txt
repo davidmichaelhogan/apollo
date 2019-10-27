@@ -13,3 +13,10 @@ npx sequelize-cli model:generate --name Event --attributes type:string,siteShown
 npx sequelize-cli model:generate --name Category --attributes name:string
 
 npx sequelize-cli model:generate --name Geo --attributes name:string,lat:integer,long:integer,radius:integer
+
+npx sequelize-cli db:migrate
+npx sequelize-cli db:migrate:undo
+
+npx sequelize-cli migration:generate --name add-associations
+npx sequelize-cli migration:generate --name associate-ad-search
+npx sequelize-cli migration:generate --name associate-site-categories
