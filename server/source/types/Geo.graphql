@@ -1,0 +1,32 @@
+type Geo {
+  id: ID!
+  title: String
+  lat: Int
+  long: Int
+  radius: Int
+}
+
+type Query {
+  geo(id: ID, title: String): Geo
+}
+
+type Mutation {
+  createGeo(input: CreateGeoInput!): Geo
+  updateGeo(input: UpdateGeoInput!): Geo
+  getGeoData(ipAddress: String): Geo
+}
+
+input CreateGeoInput {
+  title: String!
+  lat: Int
+  long: Int
+  radius: Int
+}
+
+input UpdateGeoInput {
+  id: ID!
+  title: String
+  lat: Int
+  long: Int
+  radius: Int
+}

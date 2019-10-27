@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "david",
+    "password": "Kena0117",
+    "database": "apollo_dev",
+    "host": "apollo-dev.ca1rcp3jcmiv.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "david",
+    "password": "Kena0117",
+    "database": "apollo_test",
+    "host": "apollo-dev.ca1rcp3jcmiv.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "david",
+    "password": "Kena0117",
+    "database": "apollo_prod",
+    "host": "apollo-dev.ca1rcp3jcmiv.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}

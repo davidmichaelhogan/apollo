@@ -1,0 +1,47 @@
+type Advertiser {
+  ID: ID!
+  isActive: Boolean!
+  title: String!
+  description: String
+  contactName: String
+  contactPhone: String
+  contactEmail: String
+  contactRegion: String
+  spendingMTD: Int
+  spendingAllTime: Int
+  campaigns: [Campaign]
+  paymentInfo: PaymentInfo
+}
+
+type Query {
+  advertisers: [Advertiser]
+  advertiser(id: ID!): Advertiser
+}
+
+type Mutation {
+  createAdvertiser(input: CreateAdvertiserInput!): Advertiser
+  updateAdvertiser(input: UpdateAdvertiserInput!): Advertiser
+  addAdvertiserPayment(input: AddPaymentInput!): Advertiser
+}
+
+input CreateAdvertiserInput {
+  title: String!
+  description: String
+  contactName: String
+  contactEmail: String
+  contactPhone: String
+  contactRegion: String
+}
+
+input UpdateAdvertiserInput {
+  id: ID!
+  isActive: Boolean
+  title: String
+  description: String
+  contactName: String
+  contactPhone: String
+  contactEmail: String
+  contactRegion: String
+  paymentInfo: AddPaymentInput
+  campaignIds: JSON
+}

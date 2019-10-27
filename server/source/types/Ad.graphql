@@ -1,0 +1,63 @@
+type Ad {
+  adId: ID!
+  status: AdStatus
+  advertiser: Advertiser
+  campaign: Campaign
+  categories: [Category]
+  geos: [Geo]
+  sitesShown: [Site]
+  adType: AdType
+  adAttrubutes: JSON
+  adDeliveryDate: Date
+  adUserData: JSON
+  datesShown: [Date]
+}
+
+type Query {
+  ad(adId: ID!, status: AdStatus!): Ad
+  ads(status: AdStatus!, input: SearchAdInput!): [Ad]
+}
+
+type Mutation {
+  displayAd(input: DisplayAdInput!): Ad
+  updateAd(adId: ID!, status: AdStatus!, input: UpdateAdInput!): Ad
+}
+
+input SearchAdInput {
+  advertiserId: [ID]
+  campaignId: [ID]
+  categoryId: [ID]
+  geoId: [ID]
+  siteId: [ID]
+  adType: AdType
+  deliveryDate: AdDateInput
+  dateShown: AdDateInput
+}
+
+input AdDateInput {
+  startDate: Date
+  endDate: Date
+}
+
+input DisplayAdInput {
+  siteId: ID!
+  geoId: ID
+  categoryId: ID
+}
+
+input UpdateAdInput {
+  type: AdType
+  attrubutes: JSON
+  campaignId: ID
+  userData: JSON
+}
+
+enum AdStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum AdType {
+  APOLLO
+  OTHER
+}

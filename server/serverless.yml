@@ -1,0 +1,39 @@
+# serverless.yml
+
+service: apollo-server
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  stage: dev
+  environment:
+    DB_NAME: apollo_dev
+    DB_USER: david
+    DB_PASSWORD: Kena0117
+    DB_HOST: apollo-dev.ca1rcp3jcmiv.us-east-1.rds.amazonaws.com
+    DB_PORT: 3306
+    MODELS: adhistory:adsearch:advertiser:campaign:category:geo:paymentinfo:publisher:site
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: "webpack.config.js"
+    includeModules: true
+    packager: "npm"
+
+functions:
+  graph:
+    handler: handlers/graph.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true

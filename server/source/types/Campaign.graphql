@@ -1,0 +1,60 @@
+type Campaign {
+  id: ID!
+  isActive: Boolean!
+  advertiserId: Advertiser!
+  title: String!
+  description: String
+  startDate: Date!
+  endDate: Date!
+  adDeliveryCount: Int
+  adDeliveryInterval: Int
+  balance: Int
+  cpm: Int
+  adsShownWTD: Int
+  adsShownMTD: Int
+  adsShownAllTime: Int
+  adsClickedWTD: Int
+  adsClickedMTD: Int
+  adsClickedAllTime: Int
+  ads: [Ad]
+}
+
+type Query {
+  campaign(id: ID!): Campaign
+  campaigns(advertiser: ID): [Campaign]
+}
+
+type Mutation {
+  createCampaign(input: CreateCampaignInput!): Campaign
+  updateCampaign(input: UpdateCampaignInput!): Campaign
+}
+
+input CreateCampaignInput {
+  title: String!
+  description: String
+  startDate: Date!
+  endDate: Date!
+  adDeliveryCount: Int
+  adDeliveryInterval: Int
+  balance: Int
+  cpm: Int
+  advertiserId: ID
+}
+
+input UpdateCampaignInput {
+  ID: ID!
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  balance: Int
+  cpm: Int
+  adsShownWTD: Int
+  adsShownMTD: Int
+  adsShownAllTime: Int
+  adsClickedWTD: Int
+  adsClickedMTD: Int
+  adsClickedAllTime: Int
+  advertiserId: ID
+  adIds: JSON
+}
