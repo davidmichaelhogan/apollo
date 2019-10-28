@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       startDate: DataTypes.DATE,
       endDate: DataTypes.DATE,
+      deliveryDate: DataTypes.DATE,
       cost: DataTypes.INTEGER,
       cpm: DataTypes.INTEGER,
       balance: DataTypes.INTEGER
@@ -15,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Campaign.associate = function(models) {
-    Capaign.belongsTo(model.Advertiser);
-    Campaign.hasMany(model.Ad);
+    Campaign.belongsTo(models.Advertiser);
+    Campaign.hasMany(models.Ad);
   };
   return Campaign;
 };

@@ -1,6 +1,7 @@
 ## TO DO
 
 - ad try catch / error handling !!
+- update README
 - convert sequelize models and migrations to ES6
 - implement resolver types and uncomment interfaces for Ads and PaymentInfo
 - add advanced resolvers to backwards fetch category -> site / ad info

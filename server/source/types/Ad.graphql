@@ -1,60 +1,41 @@
 type Ad {
-  adId: ID!
-  status: AdStatus
+  id: ID!
   advertiser: Advertiser
   campaign: Campaign
   categories: [Category]
   geos: [Geo]
-  sitesShown: [Site]
   adType: AdType
   adAttrubutes: JSON
-  adDeliveryDate: Date
-  adUserData: JSON
-  datesShown: [Date]
 }
 
 type Query {
-  ad(adId: ID!, status: AdStatus!): Ad
-  ads(status: AdStatus!, input: SearchAdInput!): [Ad]
+  ad(id: ID!): Ad
+  ads(input: SearchAdInput!): [Ad]
 }
 
 type Mutation {
   displayAd(input: DisplayAdInput!): Ad
-  updateAd(adId: ID!, status: AdStatus!, input: UpdateAdInput!): Ad
+  updateAd(id: ID!, input: UpdateAdInput!): Ad
 }
 
 input SearchAdInput {
-  advertiserId: [ID]
-  campaignId: [ID]
-  categoryId: [ID]
-  geoId: [ID]
-  siteId: [ID]
+  id: [ID]
   adType: AdType
-  deliveryDate: AdDateInput
-  dateShown: AdDateInput
-}
-
-input AdDateInput {
-  startDate: Date
-  endDate: Date
+  campaign: [ID]
+  category: [ID]
+  geo: [ID]
 }
 
 input DisplayAdInput {
-  siteId: ID!
-  geoId: ID
-  categoryId: ID
+  category: ID!
+  geo: ID!
 }
 
 input UpdateAdInput {
-  type: AdType
+  adType: AdType
   attrubutes: JSON
-  campaignId: ID
-  userData: JSON
-}
-
-enum AdStatus {
-  ACTIVE
-  INACTIVE
+  campaign: ID
+  categories: [ID]
 }
 
 enum AdType {

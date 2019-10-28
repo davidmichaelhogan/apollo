@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server-lambda";
 import resolvers from "../source/resolvers";
 import types from "../source/types";
-import database from "../source/data/db/models";
+import database from "../source/data/models";
 
 const server = new ApolloServer({
   typeDefs: types,
