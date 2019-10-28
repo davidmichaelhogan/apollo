@@ -1,7 +1,7 @@
 type Advertiser {
-  ID: ID!
+  id: ID!
   isActive: Boolean!
-  title: String!
+  name: String!
   description: String
   contactName: String
   contactPhone: String

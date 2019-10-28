@@ -1,11 +1,11 @@
 type Ad {
   id: ID!
+  adType: AdType
   advertiser: Advertiser
   campaign: Campaign
   categories: [Category]
   geos: [Geo]
-  adType: AdType
-  adAttrubutes: JSON
+  attributes: JSON
 }
 
 type Query {
@@ -29,13 +29,17 @@ input SearchAdInput {
 input DisplayAdInput {
   category: ID!
   geo: ID!
+  site: ID!
+  data: JSON
 }
 
 input UpdateAdInput {
   adType: AdType
-  attrubutes: JSON
+  advertiser: ID
   campaign: ID
-  categories: [ID]
+  category: [ID]
+  geo: [ID]
+  attrubutes: JSON
 }
 
 enum AdType {

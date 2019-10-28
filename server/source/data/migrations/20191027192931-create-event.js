@@ -11,13 +11,10 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      siteShown: {
-        type: Sequelize.INTEGER
-      },
-      dateShown: {
+      date: {
         type: Sequelize.DATE
       },
-      userData: {
+      data: {
         type: Sequelize.JSON
       },
       createdAt: {

@@ -49,9 +49,9 @@ const Ad = {
     displayAd: async (
       parent,
       { input },
-      { dataSources: { Ad, Campaign, Category, Geo } }
+      { dataSources: { Ad, Campaign, Category, Geo, Event } }
     ) => {
-      const { category: CategoryId, geo: GeoId } = input;
+      const { category: CategoryId, geo: GeoId, site: SiteId, data } = input;
       const date = new Date();
       try {
         // FIND AD
@@ -66,8 +66,6 @@ const Ad = {
                 deliveryDate: { [Op.lte]: date }
               },
               required: true
-              // all: true,
-              // nested: true
             },
             {
               model: Category,
@@ -110,60 +108,51 @@ const Ad = {
           "COULD NOT UPDATE DELIVERY DATE"
         );
 
-        // create ad event
-
-        // left off right here ! need to make ad event on ad show... everything else is working fine. thank god.
-
+        // register an impression
+        const createEvent = await Event.create({ AdId: ad.id, SiteId, type: 'IMPRESSION', date, data });
+        errorHandler(
+          !createEvent,
+          input,
+          "COULD NOT REGISTER IMPRESSION"
+        );
         return ad;
       } catch (error) {
         errorSender(error);
       }
+    },
+    updateAd: async (
+      parent,
+      { id, input },
+      { dataSources: { Ad, Category, Geo } }
+    ) => {
+      const { category: CategoryId, geo: GeoId, advertiser, campaign: CampaignId, ...data } = input;
+      let result;
+      try {
+        if (CampaignId || Object.keys(data).length > 0) {
+          result = await Ad.update({ CampaignId, ...data }, { where: { id } });
+          errorHandler(
+            result[0] < 1,
+            input,
+            "COULD NOT UPDATE AD"
+          );
+        }
+        if (CategoryId.length) {
+          result = await Category.setAds({ id }, { where: { id: CategoryId }});
+          console.log(result);
+
+          errorHandler(
+            result[0] < 1,
+            input,
+            "COULD NOT UPDATE AD"
+          );
+        }
+
+        // await database.update(data, { where: { adId } });
+        // return await database.findOne({ where: { adId } });
+      } catch (error) {
+        errorSender(error);
+      }
     }
-    // nope: async (
-    //   parent,
-    //   { input },
-    //   { dataSources: { AdSearch, AdHistory, Campaigns, Sequelize } }
-    // ) => {
-    //   try {
-    //     // UPDATE SEARCH TABLE
-    //     const displayAd = search.Ad[0];
-    //     const { adDeliveryInterval } = search;
-    //     const newDeliveryDate = new Date(
-    //       new Date(dateShown).getTime() + adDeliveryInterval * 1000
-    //     );
-    //     const updateAdSearchResult = await AdSearch.update(
-    //       { adDeliveryDate: newDeliveryDate, adDateShown: dateShown },
-    //       { where: { adId: displayAd.adId } }
-    //     );
-    //     errorHandler(
-    //       updateAdSearchResult[0] < 1,
-    //       input,
-    //       "COULD NOT UPDATE ADSEARCH TABLE"
-    //     );
-    //     // CREATE AD HISTORY RECORD
-    //     const { id, createdAt, updatedAt, ...newAd } = displayAd.dataValues;
-    //     const adHistory = { adDateShown: dateShown, ...newAd };
-    //     const createAdHistoryResult = await AdHistory.create(adHistory);
-    //     errorHandler(
-    //       !createAdHistoryResult.adId,
-    //       adHistory,
-    //       "COULD NOT CREATE AD HISTORY"
-    //     );
-    //     return displayAd;
-    //   } catch (error) {
-    //     errorSender(error);
-    //   }
-    // },
-    // updateAd: async (
-    //   parent,
-    //   { adId, status, input },
-    //   { dataSources: { AdSearch, AdHistory } }
-    // ) => {
-    //   const data = parseInput(input);
-    //   const database = status === "ACTIVE" ? AdSearch : AdHistory;
-    //   await database.update(data, { where: { adId } });
-    //   return await database.findOne({ where: { adId } });
-    // }
   },
 
   Ad: {

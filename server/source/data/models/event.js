@@ -4,14 +4,14 @@ module.exports = (sequelize, DataTypes) => {
     "Event",
     {
       type: DataTypes.STRING,
-      siteShown: DataTypes.INTEGER,
-      dateShown: DataTypes.DATE,
-      userData: DataTypes.JSON
+      date: DataTypes.DATE,
+      data: DataTypes.JSON
     },
     {}
   );
   Event.associate = function(models) {
     Event.belongsTo(models.Ad);
+    Event.belongsTo(models.Site);
   };
   return Event;
 };

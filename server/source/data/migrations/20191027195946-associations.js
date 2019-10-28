@@ -32,6 +32,22 @@ module.exports = {
         );
       })
       .then(() => {
+        // Site hasMany Events
+        return queryInterface.addColumn(
+          "Events", // name of Target model
+          "SiteId", // name of the key we're adding
+          {
+            type: Sequelize.INTEGER,
+            references: {
+              model: "Sites", // name of Source model
+              key: "id"
+            },
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL"
+          }
+        );
+      })
+      .then(() => {
         // Advertiser hasMany Campaigns
         return queryInterface.addColumn(
           "Campaigns", // name of Target model
@@ -48,7 +64,7 @@ module.exports = {
         );
       })
       .then(() => {
-        // Advertiser hasMany Campaigns
+        // Publisher hasMany Sites
         return queryInterface.addColumn(
           "Sites", // name of Target model
           "PublisherId", // name of the key we're adding

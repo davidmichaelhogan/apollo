@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   Site.associate = function(models) {
     Site.belongsTo(models.Publisher);
+    Site.hasMany(models.Event);
     Site.belongsToMany(models.Category, { through: "SiteCategories" });
   };
   return Site;
