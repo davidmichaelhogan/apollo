@@ -1,11 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("AdSearch", {
+    return queryInterface.createTable("AdGeos", {
       AdId: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-      },
-      CategoryId: {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
@@ -25,6 +21,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("AdSearch");
+    return queryInterface.dropTable("AdGeos");
   }
 };

@@ -9,7 +9,7 @@
 
 ## THOUGHTS
 
-- AdSearch + AdHistory Tables - when an ad is requested it is taken from the ad search table and moved to the ad history table.
+- when an ad is requested it is taken from the ad search table and moved to the ad history table.
   This will keep the number of ads in the client facing table low (quick search).
 - Ad frequency calculations - when a campaign is created, times are chosen to show ads and a complete timeframe with total
   available time to show. That number is divided by the amount of ads the customer has paid for (also divided evenly by number of

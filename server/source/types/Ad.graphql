@@ -20,7 +20,7 @@ type Mutation {
 
 input SearchAdInput {
   id: [ID]
-  adType: AdType
+  adType: [AdType]
   campaign: [ID]
   category: [ID]
   geo: [ID]
@@ -29,16 +29,13 @@ input SearchAdInput {
 input DisplayAdInput {
   category: ID!
   geo: ID!
-  site: ID!
-  data: JSON
 }
 
 input UpdateAdInput {
   adType: AdType
-  advertiser: ID
-  campaign: ID
-  category: [ID]
-  geo: [ID]
+  campaignId: ID
+  categories: [ID]
+  geos: [ID]
   attrubutes: JSON
 }
 

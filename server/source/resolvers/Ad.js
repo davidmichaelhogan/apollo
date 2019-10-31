@@ -1,7 +1,6 @@
 import Sequelize, { Model } from "sequelize";
 import {
   parseInput,
-  selectAdDataSource,
   createIdArrays,
   getAdIds,
   toDates,
@@ -18,26 +17,28 @@ const Ad = {
       return Ad.findOne({ where: { id } });
     },
     ads: async (parent, { input }, { dataSources: { Ad, Category, Geo } }) => {
-      const { category, geo, campaign: CampaignId, ...data } = input;
+      const { category: CategoryId, geo: GeoId, campaign: CampaignId, ...data } = input;
+      if (CampaignId) data.CampaignId = CampaignId;
+
       const include = [];
-      if (category) {
+      if (CategoryId) {
         include.push({
           model: Category,
-          through: { where: { CategoryId: category } },
+          through: { where: { CategoryId } },
           required: true
         });
       }
-      if (geo) {
+      if (GeoId) {
         include.push({
           model: Geo,
-          through: { where: { GeoId: geo } },
+          through: { where: { GeoId } },
           required: true
         });
       }
 
       const result = await Ad.findAll({
         where: {
-          [Op.and]: { CampaignId, ...data }
+          [Op.and]: { ...data }
         },
         include
       });
@@ -51,7 +52,7 @@ const Ad = {
       { input },
       { dataSources: { Ad, Campaign, Category, Geo, Event } }
     ) => {
-      const { category: CategoryId, geo: GeoId, site: SiteId, data } = input;
+      const { category: CategoryId, geo: GeoId } = input;
       const date = new Date();
       try {
         // FIND AD
@@ -83,13 +84,14 @@ const Ad = {
 
         // update Delivery Date
         const {
-          id: campaignId,
+          id,
           cost,
           cpm,
           startDate,
           endDate,
           deliveryDate
         } = ad.Campaign;
+
         const campaignAds = cost / cpm;
         const campaignTime = endDate.getTime() - startDate.getTime();
         const displayInterval = campaignTime / campaignAds;
@@ -99,21 +101,13 @@ const Ad = {
 
         const updateDeliveryDate = await Campaign.update(
           { deliveryDate: newDeliveryDate },
-          { where: { id: campaignId } }
+          { where: { id } }
         );
 
         errorHandler(
           updateDeliveryDate[0] < 1,
           input,
           "COULD NOT UPDATE DELIVERY DATE"
-        );
-
-        // register an impression
-        const createEvent = await Event.create({ AdId: ad.id, SiteId, type: 'IMPRESSION', date, data });
-        errorHandler(
-          !createEvent,
-          input,
-          "COULD NOT REGISTER IMPRESSION"
         );
         return ad;
       } catch (error) {
@@ -123,32 +117,36 @@ const Ad = {
     updateAd: async (
       parent,
       { id, input },
-      { dataSources: { Ad, Category, Geo } }
+      { dataSources: { Ad, Campaign, Category, Geo } }
     ) => {
-      const { category: CategoryId, geo: GeoId, advertiser, campaign: CampaignId, ...data } = input;
-      let result;
       try {
-        if (CampaignId || Object.keys(data).length > 0) {
-          result = await Ad.update({ CampaignId, ...data }, { where: { id } });
-          errorHandler(
-            result[0] < 1,
-            input,
-            "COULD NOT UPDATE AD"
-          );
-        }
-        if (CategoryId.length) {
-          result = await Category.setAds({ id }, { where: { id: CategoryId }});
-          console.log(result);
+        const {
+          categories,
+          geos,
+          campaignId,
+          ...update
+        } = input;
 
-          errorHandler(
-            result[0] < 1,
-            input,
-            "COULD NOT UPDATE AD"
-          );
-        }
+        const data = {};
+        if (categories) data.setCategories = categories;
+        if (geos) data.setGeos = geos;
+        if (campaignId) data.setCampaign = campaignId;
+        if (update) data.update = update;
+        errorHandler(Object.entries(data).length === 0, input, "NO INPUT GIVEN");
 
-        // await database.update(data, { where: { adId } });
-        // return await database.findOne({ where: { adId } });
+        const ad = await Ad.findOne({
+          where: { id },
+          include: [{ model: Campaign }],
+          include: [{ model: Category }],
+          include: [{ model: Geo }]
+        });
+
+        const result = await Promise.all(Object.getOwnPropertyNames(data).map(async key => {
+          return await ad[key](data[key]);
+        }));
+        errorHandler(result.length === 0, input, "SEQUELIZE FAILURE");
+
+        return ad;
       } catch (error) {
         errorSender(error);
       }
@@ -156,28 +154,21 @@ const Ad = {
   },
 
   Ad: {
-    // status: async (parent, args, { dataSources: { AdSearch, AdHistory } }) => {
-    //   const dataName = parent._modelOptions.name.singular;
-    //   return dataName === "AdSearch" ? "ACTIVE" : "INACTIVE";
-    // },
-    // advertiser: async (parent, args, { dataSources: { Advertisers } }) => {
-    //   return Advertisers.findOne({ where: { id: parent.advertiserId } });
-    // },
-    // campaign: async (parent, args, { dataSources: { Campaigns } }) => {
-    //   return Campaigns.findOne({ where: { id: parent.campaignId } });
-    // },
-    // categories: async (parent, args, { dataSources: { Categories } }) => {
-    //   const categoryIds = parent.categoryIds;
-    //   return await Categories.findAll({ where: { id: categoryIds } });
-    // },
-    // geos: async (parent, args, { dataSources: { Geo } }) => {
-    //   const geoIds = parent.geoIds;
-    //   return await Geo.findAll({ where: { id: geoIds } });
-    // },
-    // sitesShown: async (parent, args, { dataSources: { Sites } }) => {
-    //   const siteIds = parent.siteIds;
-    //   return await Sites.findAll({ where: { id: siteIds } });
-    // }
+    advertiser: async (parent, args, { dataSources: { Campaign, Advertiser } }) => {
+      const campaign = await Campaign.findOne({ where: { id: parent.CampaignId } });
+      return Advertiser.findOne({ where: { id: campaign.AdvertiserId } });
+    },
+    campaign: async (parent, args, { dataSources: { Campaign } }) => {
+      return Campaign.findOne({ where: { id: parent.CampaignId } });
+    },
+    categories: async (parent, args, { dataSources: { Ad, Category } }) => {
+      const ad = await Ad.findOne({ where: { id: parent.id }, include: [{ model: Category }]});
+      return ad.Categories;
+    },
+    geos: async (parent, args, { dataSources: { Ad, Geo } }) => {
+      const ad = await Ad.findOne({ where: { id: parent.id }, include: [{ model: Geo }]});
+      return ad.Geos;
+    }
   }
 };
 

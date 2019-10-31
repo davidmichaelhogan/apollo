@@ -32,16 +32,6 @@ export const parseIdArray = input => {
   return idArray.map(id => parseInt(id));
 };
 
-export const selectAdDataSource = (status, sources) => {
-  const { AdSearch, AdHistory } = sources;
-  switch (status) {
-    case "ACTIVE":
-      return AdSearch;
-    case "INACTIVE":
-      return AdHistory;
-  }
-};
-
 export const createIdArrays = array => {
   const result = {};
   array.forEach(object => {

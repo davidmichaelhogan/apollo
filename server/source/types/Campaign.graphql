@@ -2,7 +2,7 @@ type Campaign {
   id: ID!
   isActive: Boolean!
   advertiserId: Advertiser!
-  title: String!
+  name: String!
   description: String
   startDate: Date!
   endDate: Date!

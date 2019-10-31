@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Geo.associate = function(models) {
-    Geo.belongsToMany(models.Ad, { through: "AdSearch" });
+    Geo.belongsToMany(models.Ad, { through: "AdGeos" });
   };
   return Geo;
 };
