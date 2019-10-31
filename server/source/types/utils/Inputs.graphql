@@ -1,0 +1,9 @@
+input DateRange {
+  before: Date
+  after: Date
+}
+
+input IntRange {
+  lte: Int
+  gte: Int
+}

@@ -1,27 +1,21 @@
 type Campaign {
   id: ID!
-  isActive: Boolean!
-  advertiserId: Advertiser!
-  name: String!
+  isActive: Boolean
+  name: String
   description: String
-  startDate: Date!
-  endDate: Date!
-  adDeliveryCount: Int
-  adDeliveryInterval: Int
-  balance: Int
+  startDate: Date
+  endDate: Date
+  deliveryDate: Date
+  cost: Int
   cpm: Int
-  adsShownWTD: Int
-  adsShownMTD: Int
-  adsShownAllTime: Int
-  adsClickedWTD: Int
-  adsClickedMTD: Int
-  adsClickedAllTime: Int
+  balance: Int
   ads: [Ad]
+  advertiser: Advertiser
 }
 
 type Query {
   campaign(id: ID!): Campaign
-  campaigns(advertiser: ID): [Campaign]
+  campaigns(input: SearchCampaignsInput!): [Campaign]
 }
 
 type Mutation {
@@ -29,32 +23,40 @@ type Mutation {
   updateCampaign(input: UpdateCampaignInput!): Campaign
 }
 
-input CreateCampaignInput {
-  title: String!
-  description: String
-  startDate: Date!
-  endDate: Date!
-  adDeliveryCount: Int
-  adDeliveryInterval: Int
-  balance: Int
-  cpm: Int
-  advertiserId: ID
+input SearchCampaignsInput {
+  id: [ID]
+  isActive: Boolean
+  startDate: DateRange
+  endDate: DateRange
+  deliveryDate: DateRange
+  cost: IntRange
+  cpm: IntRange
+  balance: IntRange
+  ads: [ID]
+  advertiser: [ID]
 }
 
-input UpdateCampaignInput {
-  ID: ID!
-  title: String
+input CreateCampaignInput { # CALCULATE DELIVERY DATE !!!!
+  name: String
   description: String
   startDate: Date
   endDate: Date
-  balance: Int
+  cost: Int
   cpm: Int
-  adsShownWTD: Int
-  adsShownMTD: Int
-  adsShownAllTime: Int
-  adsClickedWTD: Int
-  adsClickedMTD: Int
-  adsClickedAllTime: Int
-  advertiserId: ID
-  adIds: JSON
+  balance: Int
+  advertiser: ID
+}
+
+input UpdateCampaignInput {
+  isActive: Boolean
+  name: String
+  description: String
+  startDate: Date
+  endDate: Date
+  deliveryDate: Date
+  cost: Int
+  cpm: Int
+  balance: Int
+  ads: [ID]
+  advertiser: ID
 }

@@ -10,7 +10,6 @@ type Publisher {
   earningsMTD: Int
   earningsAllTime: Int
   sites: [Site]
-  paymentInfo: PaymentInfo
 }
 
 type Query {
@@ -22,7 +21,6 @@ type Mutation {
   createPublisher(input: CreatePublisherInput!): Publisher
   updatePublisher(id: ID!, input: UpdatePublisherInput!): Publisher
   cancelPublisher(id: ID!): Publisher
-  addPublisherPayment(publisherId: ID!, input: AddPaymentInput!): Publisher
 }
 
 input CreatePublisherInput {
@@ -45,5 +43,4 @@ input UpdatePublisherInput {
   contactRegion: String
   earningsMTD: Int
   earningsAllTime: Int
-  paymentInfo: AddPaymentInput
 }

@@ -6,10 +6,9 @@ import Category from "./Category.graphql";
 import Advertiser from "./Advertiser.graphql";
 import Campaign from "./Campaign.graphql";
 import Ad from "./Ad.graphql";
-
 import Geo from "./Geo.graphql";
-import PaymentInfo from "./utils/PaymentInfo.graphql";
 
+import Inputs from "./utils/Inputs.graphql";
 import Date from "./utils/Scalars.graphql";
 import JSON from "./utils/Scalars.graphql";
 
@@ -22,7 +21,7 @@ export default mergeTypes(
     Campaign,
     Ad,
     Geo,
-    PaymentInfo,
+    Inputs,
     Date,
     JSON
   ],

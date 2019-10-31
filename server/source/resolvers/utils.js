@@ -3,6 +3,8 @@
 // Apollo V2
 // David Michael Hogan | October 23, 2019 | Updated:
 // ----------------------------------------------------------------------------------//
+import Sequelize, { Model } from "sequelize";
+const Op = Sequelize.Op;
 
 export const parseInput = input => JSON.parse(JSON.stringify(input));
 export const encodeJSON = input => JSON.stringify(input);
@@ -18,6 +20,28 @@ ${JSON.stringify(data)}
 ===========================================`;
   }
 };
+
+export const dateRange = (values) => {
+  const { before, after } = values;
+  if (before) {
+    return { [Op.lte]: before }
+  } else if (after) {
+    return { [Op.gte]: after }
+  } else {
+    errorHandler(true, input, "DATE RANGE INPUT ERROR");
+  }
+}
+
+export const intRange = (values) => {
+  const { lte, gte } = values;
+  if (lte) {
+    return { [Op.lte]: lte }
+  } else if (gte) {
+    return { [Op.gte]: gte }
+  } else {
+    errorHandler(true, input, "INT RANGE INPUT ERROR");
+  }
+}
 
 export const toDates = array =>
   array.map(value =>
