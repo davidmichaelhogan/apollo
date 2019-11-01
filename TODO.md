@@ -1,6 +1,7 @@
 ## TO DO
 
 - ad try catch / error handling !!
+- remove if statements
 - update README
 - convert sequelize models and migrations to ES6
 - implement resolver types and uncomment interfaces for Ads and PaymentInfo

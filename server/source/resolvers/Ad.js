@@ -84,7 +84,8 @@ const Ad = {
           cpm,
           startDate,
           endDate,
-          deliveryDate
+          deliveryDate,
+          balance
         } = ad.Campaign;
 
         const campaignAds = cost / cpm;
@@ -94,8 +95,10 @@ const Ad = {
           deliveryDate.getTime() + displayInterval
         );
 
+        const newBalance = balance - (cpm / 1000);
+
         const updateDeliveryDate = await Campaign.update(
-          { deliveryDate: newDeliveryDate },
+          { deliveryDate: newDeliveryDate, balance: newBalance },
           { where: { id } }
         );
 

@@ -8,7 +8,7 @@ type Campaign {
   deliveryDate: Date
   cost: Int
   cpm: Int
-  balance: Int
+  balance: Float
   ads: [Ad]
   advertiser: Advertiser
 }
@@ -20,7 +20,7 @@ type Query {
 
 type Mutation {
   createCampaign(input: CreateCampaignInput!): Campaign
-  updateCampaign(input: UpdateCampaignInput!): Campaign
+  updateCampaign(id: ID!, input: UpdateCampaignInput!): Campaign
 }
 
 input SearchCampaignsInput {
@@ -37,14 +37,13 @@ input SearchCampaignsInput {
 }
 
 input CreateCampaignInput { # CALCULATE DELIVERY DATE !!!!
-  name: String
+  name: String!
   description: String
-  startDate: Date
-  endDate: Date
-  cost: Int
-  cpm: Int
-  balance: Int
-  advertiser: ID
+  startDate: Date!
+  endDate: Date!
+  cost: Int!
+  cpm: Int!
+  advertiser: ID!
 }
 
 input UpdateCampaignInput {
@@ -56,7 +55,7 @@ input UpdateCampaignInput {
   deliveryDate: Date
   cost: Int
   cpm: Int
-  balance: Int
+  balance: Float
   ads: [ID]
   advertiser: ID
 }

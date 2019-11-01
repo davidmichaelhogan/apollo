@@ -4,7 +4,7 @@ npx sequelize-cli model:generate --name Site --attributes isActive:boolean,name:
 
 npx sequelize-cli model:generate --name Advertiser --attributes isActive:boolean,name:string,description:string,contactName:string,contactEmail:string,contactPhone:string
 
-npx sequelize-cli model:generate --name Campaign --attributes isActive:boolean,name:string,description:string,startDate:date,endDate:date,cost:integer,cpm:integer,balance:integer
+npx sequelize-cli model:generate --name Campaign --attributes isActive:boolean,name:string,description:string,startDate:date,endDate:date,cost:integer,cpm:integer,balance:float
 
 npx sequelize-cli model:generate --name Ad --attributes adType:string,attributes:json
 

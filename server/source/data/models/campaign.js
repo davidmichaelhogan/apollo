@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       deliveryDate: DataTypes.DATE,
       cost: DataTypes.INTEGER,
       cpm: DataTypes.INTEGER,
-      balance: DataTypes.INTEGER
+      balance: DataTypes.FLOAT
     },
     {}
   );
