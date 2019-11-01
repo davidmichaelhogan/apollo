@@ -8,7 +8,7 @@ import Campaign from "./Campaign.graphql";
 import Ad from "./Ad.graphql";
 import Geo from "./Geo.graphql";
 
-import Inputs from "./utils/Inputs.graphql";
+import Ranges from "./utils/Ranges.graphql";
 import Date from "./utils/Scalars.graphql";
 import JSON from "./utils/Scalars.graphql";
 
@@ -21,7 +21,7 @@ export default mergeTypes(
     Campaign,
     Ad,
     Geo,
-    Inputs,
+    Ranges,
     Date,
     JSON
   ],

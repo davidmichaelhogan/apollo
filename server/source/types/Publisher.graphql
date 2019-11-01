@@ -1,46 +1,36 @@
 type Publisher {
   id: ID!
-  isActive: Boolean!
-  title: String!
+  isActive: Boolean
+  name: String
   description: String
   contactName: String
   contactEmail: String
   contactPhone: String
-  contactRegion: String
-  earningsMTD: Int
-  earningsAllTime: Int
   sites: [Site]
 }
 
 type Query {
   publisher(id: ID!): Publisher
-  publishers: [Publisher]
+  publishers(sites: [ID]): [Publisher]
 }
 
 type Mutation {
   createPublisher(input: CreatePublisherInput!): Publisher
   updatePublisher(id: ID!, input: UpdatePublisherInput!): Publisher
-  cancelPublisher(id: ID!): Publisher
 }
 
 input CreatePublisherInput {
-  title: String!
+  name: String
   description: String
   contactName: String
   contactEmail: String
   contactPhone: String
-  contactRegion: String
 }
 
 input UpdatePublisherInput {
-  id: ID
-  isActive: Boolean
-  title: String
+  name: String
   description: String
   contactName: String
   contactEmail: String
   contactPhone: String
-  contactRegion: String
-  earningsMTD: Int
-  earningsAllTime: Int
 }

@@ -36,7 +36,7 @@ input SearchCampaignsInput {
   advertiser: [ID]
 }
 
-input CreateCampaignInput { # CALCULATE DELIVERY DATE !!!!
+input CreateCampaignInput {
   name: String!
   description: String
   startDate: Date!

@@ -14,8 +14,8 @@ const Campaign = {
       return await Campaign.findOne({ where: { id } });
     },
     campaigns: async (parent, { input }, { dataSources: { Campaign } }) => {
-      const { startDate, endDate, deliveryDate, cost, cpm, balance, advertiser, ...data } = input;
       try {
+        const { startDate, endDate, deliveryDate, cost, cpm, balance, advertiser, ...data } = input;
         if (startDate) data.startDate = dateRange(startDate);
         if (endDate) data.endDate = dateRange(endDate);
         if (deliveryDate) data.deliveryDate = dateRange(deliveryDate);
@@ -60,30 +60,35 @@ const Campaign = {
     updateCampaign: async (
       parent,
       { id, input },
-      { dataSources: { Campaign } }
+      { dataSources: { Campaign, Ad } }
     ) => {
       try {
-        const { advertiser, ...data } = input;
+        const { advertiser, ads, ...data } = input;
         if (advertiser) data.AdvertiserId = advertiser;
+        if (ads) {
+          const updateAds = await Ad.update({ CampaignId: id }, { where: { id: ads } });
+          errorHandler(updateAds.length === 0, input, "COULD NOT UPDATE ADS IN CAMPAIGN UPDATE");
+        }
 
-        const { cost, cpm, startDate, endDate } = input; // LEFT OFF WITH THIS PART NOT WORKING CAUSE I HAVE TO GET CAMPAIGN DATA FROM TABLE FIRST
+        const { cost, cpm, startDate, endDate } = input;
         if (cost || cpm || startDate || endDate) {
+          const campaign = await Campaign.findOne({ where: { id } });
+          if (cpm) campaign.cpm = cpm;
+          if (cost) campaign.cost = cost;
+          if (startDate) campaign.startDate = startDate;
+          if (endDate) campaign.endDate = endDate;
           const now = new Date();
-          const campaignAds = cost / cpm;
-          const campaignTime = new Date(endDate).getTime() - new Date(startDate).getTime();
+          const campaignAds = campaign.cost / campaign.cpm;
+          const campaignTime = new Date(campaign.endDate).getTime() - new Date(campaign.startDate).getTime();
           const displayInterval = campaignTime / campaignAds;
           data.deliveryDate = new Date(
             now.getTime() + displayInterval
           );
         }
 
-        console.log(data.deliveryDate);
-
         const updateCampaign = await Campaign.update(data, { where: { id } });
         errorHandler(updateCampaign.length === 0, input, "COULD NOT UPDATE CAMPAIGN");
-        const campaign = await Campaign.findOne({ where: { id } });
-        errorHandler(!campaign, input, "CAMPAIGN DOES NOT EXIST (update)");
-        return campaign;
+        return await Campaign.findOne({ where: { id } });
       } catch (error) {
         errorSender(error);
       }

@@ -121,14 +121,14 @@ const Ad = {
         const {
           categories,
           geos,
-          campaignId,
+          campaign,
           ...update
         } = input;
 
         const data = {};
         if (categories) data.setCategories = categories;
         if (geos) data.setGeos = geos;
-        if (campaignId) data.setCampaign = campaignId;
+        if (campaign) data.setCampaign = campaign;
         if (update) data.update = update;
         errorHandler(Object.entries(data).length === 0, input, "NO INPUT GIVEN");
 

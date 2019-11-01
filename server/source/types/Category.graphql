@@ -1,28 +1,13 @@
 type Category {
   id: ID!
-  title: String
-  parent: Category
-  subCategories: [Category]
+  name: String
 }
 
 type Query {
   category(id: ID!): Category
-  categories(parent: ID): [Category]
+  categories(id: [ID], name: String): [Category]
 }
 
 type Mutation {
-  createCategory(input: CreateCategoryInput!): Category
-  updateCategory(input: UpdateCategoryInput!): Category
-  deleteCategory(id: ID!): Category
-}
-
-input CreateCategoryInput {
-  name: String!
-  parent: ID
-}
-
-input UpdateCategoryInput {
-  id: ID!
-  name: String
-  parent: ID
+  createCategories(names: [String!]): [Category]
 }

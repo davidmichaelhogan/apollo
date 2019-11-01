@@ -1,57 +1,39 @@
 type Site {
   id: ID!
   isActive: Boolean!
-  title: String!
+  name: String
   description: String
   pageviewsWTD: Int
   pageviewsMTD: Int
   pageviewsAllTime: Int
-  adsShownWTD: Int
-  adsShownMTD: Int
-  adsShownAllTime: Int
-  adsClickedWTD: Int
-  adsClickedMTD: Int
-  adsClickedAllTime: Int
-  earningsMTD: Int
-  earningsAllTime: Int
   categories: [Category]
-  publisherId: Publisher!
+  publisher: Publisher
 }
 
 type Query {
-  site(id: ID!): Site
-  sites(publisherId: ID): [Site]
-  adsShown(site: ID!, from: Date, to: Date): [Ad]
+  site(id: [ID]): [Site]
+  publisherSites(publisher: ID): [Site]
 }
 
 type Mutation {
   createSite(input: CreateSiteInput!): Site
   updateSite(id: ID!, input: UpdateSiteInput!): Site
-  cancelSite(id: ID!): Site
 }
 
 input CreateSiteInput {
-  publisherId: ID!
-  title: String!
+  name: String!
   description: String
-  categoryIds: JSON
+  publisher: ID
+  categories: [ID]
 }
 
 input UpdateSiteInput {
   isActive: Boolean
-  title: String
+  name: String
   description: String
   pageviewsWTD: Int
   pageviewsMTD: Int
   pageviewsAllTime: Int
-  adsShownWTD: Int
-  adsShownMTD: Int
-  adsShownAllTime: Int
-  adsClickedWTD: Int
-  adsClickedMTD: Int
-  adsClickedAllTime: Int
-  earningsMTD: Int
-  earningsAllTime: Int
-  publisherId: ID
-  categoryIds: [ID]
+  publisher: ID
+  categories: [ID]
 }

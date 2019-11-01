@@ -1,0 +1,37 @@
+type Event {
+  id: ID!
+  type: EventType
+  date: Date!
+  data: JSON
+  site: Site
+  ad: Ad
+}
+
+type Query {
+  event(id: ID!): Event
+  events(input: SearchEventInput!): [Event]
+}
+
+type Mutation {
+  createEvent(input: CreateEventInput!): Event
+}
+
+input SearchEventInput {
+  type: EventType
+  dates: DateRange
+  site: ID
+  ad: ID
+}
+
+input CreateEventInput {
+  type: EventType
+  date: Date!
+  data: JSON
+  site: ID
+  ad: ID
+}
+
+enum EventType {
+  IMPRESSION
+  CLICK
+}

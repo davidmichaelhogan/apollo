@@ -33,7 +33,7 @@ input DisplayAdInput {
 
 input UpdateAdInput {
   adType: AdType
-  campaignId: ID
+  campaign: ID
   categories: [ID]
   geos: [ID]
   attrubutes: JSON

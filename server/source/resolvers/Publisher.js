@@ -1,12 +1,16 @@
-import { parseInput } from "./utils.js";
-
 const Publisher = {
   Query: {
-    publisher: async (parent, { id }, { dataSources: { Publishers } }) => {
-      return await Publishers.findOne({ where: { id } });
+    publisher: async (parent, { id }, { dataSources: { Publisher } }) => {
+      return await Publisher.findOne({ where: { id } });
     },
-    publishers: async (parent, args, { dataSources: { Publishers } }) => {
-      return await Publishers.findAll();
+    publishers: async (parent, { sites }, { dataSources: { Publisher, Site } }) => {
+      if (sites) {
+        return await Publisher.findAll({
+          include: [
+            { model: Site, where: { id: sites } }
+          ]})
+      }
+      return await Publisher.findAll();
     }
   },
 
@@ -14,48 +18,23 @@ const Publisher = {
     createPublisher: async (
       parent,
       { input },
-      { dataSources: { Publishers } }
+      { dataSources: { Publisher } }
     ) => {
-      const data = parseInput(input);
-      return await Publishers.create({ isActive: true, ...data });
+      return await Publisher.create({ isActive: true, ...input });
     },
     updatePublisher: async (
       parent,
       { id, input },
-      { dataSources: { Publishers } }
+      { dataSources: { Publisher } }
     ) => {
-      const data = parseInput(input);
-      await Publishers.update(data, { where: { id } });
-      return await Publishers.findOne({ where: { id } });
-    },
-    cancelPublisher: async (
-      parent,
-      { id },
-      { dataSources: { Publishers } }
-    ) => {
-      await Publishers.update({ isActive: false }, { where: { id } });
-      return await Publishers.findOne({ where: { id } });
-    },
-    addPublisherPayment: async (
-      parent,
-      { publisherId: id, input },
-      { dataSources: { Publishers, PaymentInfo } }
-    ) => {
-      const data = parseInput(input);
-      const payment = await PaymentInfo.create(data);
-      await Publishers.update({ PaymentInfoId: payment.id }, { where: { id } });
-      return await Publishers.findOne({ where: { id } });
+      await Publisher.update(input, { where: { id } });
+      return await Publisher.findOne({ where: { id } });
     }
   },
 
   Publisher: {
-    sites: async (parent, args, { dataSources: { Sites } }) => {
-      return await Sites.findAll({ where: { publisherId: parent.id } });
-    },
-    paymentInfo: async (parent, args, { dataSources: { PaymentInfo } }) => {
-      return await PaymentInfo.findOne({
-        where: { id: parent.paymentInfoId }
-      });
+    sites: async (parent, args, { dataSources: { Site } }) => {
+      return await Site.findAll({ where: { PublisherId: parent.id } });
     }
   }
 };

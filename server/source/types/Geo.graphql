@@ -1,31 +1,30 @@
 type Geo {
   id: ID!
-  title: String
+  name: String
   lat: Int
   long: Int
   radius: Int
 }
 
 type Query {
-  geo(id: ID, title: String): Geo
+  geo(id: [ID]): [Geo]
+  getGeoByIP(address: String): Geo
 }
 
 type Mutation {
   createGeo(input: CreateGeoInput!): Geo
-  updateGeo(input: UpdateGeoInput!): Geo
-  getGeoData(ipAddress: String): Geo
+  updateGeo(id: ID!, input: UpdateGeoInput!): Geo
 }
 
 input CreateGeoInput {
-  title: String!
+  name: String!
   lat: Int
   long: Int
   radius: Int
 }
 
 input UpdateGeoInput {
-  id: ID!
-  title: String
+  name: String
   lat: Int
   long: Int
   radius: Int
