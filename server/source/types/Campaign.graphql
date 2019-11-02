@@ -14,7 +14,7 @@ type Campaign {
 }
 
 type Query {
-  campaign(id: ID!): Campaign
+  campaign(id: [ID!]): [Campaign]
   campaigns(input: SearchCampaignsInput!): [Campaign]
 }
 

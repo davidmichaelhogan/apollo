@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Campaign Resolver | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import Sequelize, { Model } from "sequelize";
 import {
   dateRange,
@@ -6,12 +12,13 @@ import {
   errorSender
 } from "./utils.js";
 
-const Op = Sequelize.Op;
-
 const Campaign = {
   Query: {
     campaign: async (parent, { id }, { dataSources: { Campaign } }) => {
-      return await Campaign.findOne({ where: { id } });
+      if (id) {
+        return await Campaign.findAll({ where: { id } });
+      }
+      return await Campaign.findAll();
     },
     campaigns: async (parent, { input }, { dataSources: { Campaign } }) => {
       try {

@@ -1,4 +1,15 @@
-const Geo = {
+// ----------------------------------------------------------------------------------//
+// Geo Resolver | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
+import {
+  errorHandler,
+  errorSender
+} from "./utils.js";
+
+  const Geo = {
   Query: {
     geo: async (parent, { id }, { dataSources: { Geo } }) => {
       if (id) {
@@ -20,8 +31,13 @@ const Geo = {
       return await Geo.create(input);
     },
     updateGeo: async ( parent, { id, input }, { dataSources: { Geo } }) => {
-      const updatedGeo = await Geo.update(input, { where: { id }});
-      return await Geo.findOne({ where: { id } });
+      try {
+        const updatedGeo = await Geo.update(input, { where: { id }});
+        errorHandler(updatedGeo[0] < 1, input, "COULD NOT UPDATE GEO");
+        return await Geo.findOne({ where: { id } });
+        } catch (error) {
+          errorSender(error);
+        }
     }
   }
 };

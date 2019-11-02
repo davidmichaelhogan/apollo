@@ -11,7 +11,7 @@ type Advertiser {
 }
 
 type Query {
-  advertiser(id: ID!): Advertiser
+  advertiser(id: [ID!]): [Advertiser]
   advertisers: [Advertiser]
 }
 

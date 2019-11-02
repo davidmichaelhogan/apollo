@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Resolver Index | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import { mergeResolvers } from "merge-graphql-schemas";
 
 import Ad from "./Ad";

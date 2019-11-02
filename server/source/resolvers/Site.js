@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Site Resolver | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import {
   errorHandler,
   errorSender

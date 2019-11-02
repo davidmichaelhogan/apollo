@@ -10,7 +10,7 @@ type Publisher {
 }
 
 type Query {
-  publisher(id: ID!): Publisher
+  publisher(id: [ID!]): [Publisher]
   publishers(sites: [ID]): [Publisher]
 }
 

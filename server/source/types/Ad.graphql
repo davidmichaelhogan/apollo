@@ -9,7 +9,7 @@ type Ad {
 }
 
 type Query {
-  ad(id: ID!): Ad
+  ad(id: [ID!]): [Ad]
   ads(input: SearchAdInput!): [Ad]
 }
 

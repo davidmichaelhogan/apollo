@@ -4,7 +4,7 @@ type Category {
 }
 
 type Query {
-  category(id: ID!): Category
+  category(id: [ID!]): [Category]
   categories(id: [ID], name: String): [Category]
 }
 

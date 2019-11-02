@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Ad Resolver | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import Sequelize, { Model } from "sequelize";
 import {
   errorHandler,
@@ -9,35 +15,43 @@ const Op = Sequelize.Op;
 const Ad = {
   Query: {
     ad: async (parent, { id }, { dataSources: { Ad } }) => {
-      return Ad.findOne({ where: { id } });
+      if (id) {
+        return await Ad.findAll({ where: { id } });
+      }
+      return await Ad.findAll();
     },
     ads: async (parent, { input }, { dataSources: { Ad, Category, Geo } }) => {
-      const { category: CategoryId, geo: GeoId, campaign: CampaignId, ...data } = input;
-      if (CampaignId) data.CampaignId = CampaignId;
+      try {
+        const { category: CategoryId, geo: GeoId, campaign: CampaignId, ...data } = input;
+        if (CampaignId) data.CampaignId = CampaignId;
 
-      const include = [];
-      if (CategoryId) {
-        include.push({
-          model: Category,
-          through: { where: { CategoryId } },
-          required: true
-        });
-      }
-      if (GeoId) {
-        include.push({
-          model: Geo,
-          through: { where: { GeoId } },
-          required: true
-        });
-      }
+        const include = [];
+        if (CategoryId) {
+          include.push({
+            model: Category,
+            through: { where: { CategoryId } },
+            required: true
+          });
+        }
+        if (GeoId) {
+          include.push({
+            model: Geo,
+            through: { where: { GeoId } },
+            required: true
+          });
+        }
 
-      const result = await Ad.findAll({
-        where: {
-          [Op.and]: { ...data }
-        },
-        include
-      });
-      return result;
+        const result = await Ad.findAll({
+          where: {
+            [Op.and]: { ...data }
+          },
+          include
+        });
+        errorHandler(!result, input, "COULD NOT FIND AD");
+        return result;
+      } catch (error) {
+        errorSender(error);
+      }
     }
   },
 

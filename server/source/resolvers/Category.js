@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Category Resolver | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import Sequelize, { Model } from "sequelize";
 import {
   errorHandler,
@@ -9,7 +15,10 @@ const Op = Sequelize.Op;
 const Category = {
   Query: {
     category: async (parent, { id }, { dataSources: { Category } }) => {
-      return await Category.findOne({ where: { id } });
+      if (id) {
+        return await Category.findAll({ where: { id } });
+      }
+      return await Category.findAll();
     },
     categories: async (parent, { id, name }, { dataSources: { Category } }) => {
       try {

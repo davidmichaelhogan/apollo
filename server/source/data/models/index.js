@@ -1,3 +1,10 @@
+// ----------------------------------------------------------------------------------//
+// Sequelize Module Index | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
+
 import Sequelize from "sequelize";
 import mysql2 from "mysql2";
 

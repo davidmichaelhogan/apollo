@@ -1,4 +1,9 @@
-"use strict";
+// ----------------------------------------------------------------------------------//
+// Category Module | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 1, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define(
     "Category",
