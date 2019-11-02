@@ -1,8 +1,8 @@
 {
   "name": "apollo-graph",
-  "version": "2.0.0",
-  "description": "Apollo Ad Network Graph",
-  "main": "index.js",
+  "version": "2.1.0",
+  "description": "Graph Server | Apollo Advertising",
+  "main": "graph.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "local": "sls offline",

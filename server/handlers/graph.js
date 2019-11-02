@@ -18,7 +18,12 @@ const server = new ApolloServer({
 });
 
 export const handler = (event, context, callback) => {
-  const handler = server.createHandler();
+  const handler = server.createHandler({
+    cors: {
+      origin: '*',
+      credentials: true,
+    },
+  });
   context.callbackWaitsForEmptyEventLoop = false;
   return handler(event, context, callback);
 };
