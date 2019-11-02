@@ -1,3 +1,10 @@
+import {
+  dateRange,
+  intRange,
+  errorHandler,
+  errorSender
+} from "./utils.js";
+
 const Event = {
   Query: {
     event: async (parent, { id }, { dataSources: { Event } }) => {
@@ -6,8 +13,13 @@ const Event = {
       }
       return await Event.findAll();
     },
-    events: async (parent, { address }, { dataSources: { Event } }) => {
-      return await Geo.findOne();
+    events: async (parent, { input }, { dataSources: { Event } }) => {
+      const { date, site, ad, ...data } = input;
+      if (date) data.date = dateRange(date);
+      if (site) data.SiteId = site;
+      if (ad) data.AdId = ad;
+
+      return await Event.findAll({ where: { ...data } });
     }
   },
 
@@ -17,24 +29,13 @@ const Event = {
       { input },
       { dataSources: { Event } }
     ) => {
-      return await Event.create(input);
-    },
-    updateGeo: async ( parent, { id, input }, { dataSources: { Geo } }) => {
-      const updatedGeo = await Geo.update(input, { where: { id }});
-      return await Geo.findOne({ where: { id } });
+      const { site, ad, ...data } = input;
+      data.date = new Date();
+      if (site) data.SiteId = site;
+      if (ad) data.AdId = ad;
+      return await Event.create(data);
     }
   }
 };
 
 export default Event;
-
-// register an impression
-// const createEvent = await Event.create({
-//   AdId: ad.id,
-//   SiteId,
-//   type: "IMPRESSION",
-//   date,
-//   data
-// });
-// errorHandler(!createEvent, input, "COULD NOT REGISTER IMPRESSION");
-// return ad;

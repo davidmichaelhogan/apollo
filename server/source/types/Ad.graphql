@@ -29,6 +29,7 @@ input SearchAdInput {
 input DisplayAdInput {
   category: ID!
   geo: ID!
+  site: ID
 }
 
 input UpdateAdInput {

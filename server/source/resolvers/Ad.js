@@ -47,7 +47,7 @@ const Ad = {
       { input },
       { dataSources: { Ad, Campaign, Category, Geo, Event } }
     ) => {
-      const { category: CategoryId, geo: GeoId } = input;
+      const { category: CategoryId, geo: GeoId, site: SiteId } = input;
       const date = new Date();
       try {
         // FIND AD
@@ -107,6 +107,22 @@ const Ad = {
           input,
           "COULD NOT UPDATE DELIVERY DATE"
         );
+
+        // create event
+        const data = {};
+        data.type = "IMPRESSION"
+        data.date = date;
+        data.AdId = ad.id;
+        if (SiteId) data.SiteId = SiteId;
+        data.data = {};
+        const createEvent = await Event.create(data);
+
+        errorHandler(
+          createEvent[0] < 1,
+          data,
+          "COULD NOT CREATE EVENT IN DISPLAYAD"
+        );
+
         return ad;
       } catch (error) {
         errorSender(error);

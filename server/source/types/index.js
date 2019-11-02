@@ -7,6 +7,7 @@ import Advertiser from "./Advertiser.graphql";
 import Campaign from "./Campaign.graphql";
 import Ad from "./Ad.graphql";
 import Geo from "./Geo.graphql";
+import Event from "./Event.graphql";
 
 import Ranges from "./utils/Ranges.graphql";
 import Date from "./utils/Scalars.graphql";
@@ -21,6 +22,7 @@ export default mergeTypes(
     Campaign,
     Ad,
     Geo,
+    Event,
     Ranges,
     Date,
     JSON
