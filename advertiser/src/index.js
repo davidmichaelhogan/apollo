@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// App Index | Apollo Advertiser Dashboard
+// Apollo V2
+// David Michael Hogan | November 2, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';

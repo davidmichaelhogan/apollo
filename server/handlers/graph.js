@@ -1,3 +1,9 @@
+// ----------------------------------------------------------------------------------//
+// Graph Handler | Apollo Graph
+// Apollo V2
+// David Michael Hogan | November 2, 2019 | Updated:
+// ----------------------------------------------------------------------------------//
+
 import { ApolloServer } from "apollo-server-lambda";
 import resolvers from "../source/resolvers";
 import types from "../source/types";
