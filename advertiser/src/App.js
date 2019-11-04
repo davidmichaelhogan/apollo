@@ -1,112 +1,36 @@
-// ----------------------------------------------------------------------------------//
-// App Wrapper | Apollo Advertiser Dashboard
-// Apollo V2
-// David Michael Hogan | November 2, 2019 | Updated:
-// ----------------------------------------------------------------------------------//
+import React, { Component } from 'react';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Chart } from 'react-chartjs-2';
+import { ThemeProvider } from '@material-ui/styles';
+import validate from 'validate.js';
 
-// -------------------- WORKING ON GETTING THE WRAPPER ALL SET FOR THE DASHBOARD !
-// -------------------- TRY SETTING UP THE TABLE OR THE STEPPER !
+import { chartjs } from './helpers';
+import theme from './theme';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import './assets/scss/index.scss';
+import validators from './common/validators';
+import Routes from './Routes';
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { useQuery } from '@apollo/react-hooks';
-import client from "./apollo/client";
+const browserHistory = createBrowserHistory();
 
-import { ad } from "./apollo/queries";
+Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
+  draw: chartjs.draw
+});
 
-// Material and styles
-import Button from '@material-ui/core/Button';
-import './styles/App.css';
+validate.validators = {
+  ...validate.validators,
+  ...validators
+};
 
-const App = () => {
-  return (
-    <Router>
-      <ApolloProvider client={client}>
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-          <MainMenu/>
-        </header>
-        <div>
-          <Route exact path="/" component={Home} />
-          {/* <Route exact path="/about" component={About} />
-          <Route exact path="/code" component={Code} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/info" component={info} /> */}
-        </div>
-      </div>
-      </ApolloProvider>
-    </Router>
-  );
+export default class App extends Component {
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Router history={browserHistory}>
+          <Routes />
+        </Router>
+      </ThemeProvider>
+    );
+  }
 }
-
-const TestQuery = () => {
-  const { loading, error, data } = useQuery(ad);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  if (data) console.log(data.ad.map(ad => ad.id));
-
-  return data.ad.map(({ id, attributes }) => (
-        <div key={id}>
-      <p>
-        {attributes.headline}
-      </p>
-    </div>
-  ));
-}
-
-const MainMenu = () => (
-
-  <div>
-    <Link to="/">
-      <Button variant="contained" color="primary">home</Button>
-    </Link>
-    {/* <Link to="/about">
-      <button>About</button>
-    </Link>
-    <Link to="/code">
-      <button>code</button>
-    </Link>
-    <Link to="/code">
-      <button>contact</button>
-    </Link>
-    <Link to="/info">
-      <button>info</button>
-    </Link> */}
-  </div>
-
-)
-
-const Home = () => (
-  <div>
-    <TestQuery />
-  </div>
-)
-
-// const About = () => (
-//   <div>
-//     About
-//   </div>
-// )
-
-// const Code = () => (
-//   <div>
-//     Code
-//   </div>
-// )
-
-// const Contact = () => (
-//   <div>
-//     Contact
-//   </div>
-// )
-
-// const info = () => (
-//   <div>
-//     info
-//   </div>
-// )
-
-export default App;
