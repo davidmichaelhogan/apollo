@@ -1,0 +1,33 @@
+query getEvent {
+  event(id: [1,2,3,4]) {
+    id
+    date
+  }
+}
+
+query getEvents {
+  events(input: {
+    type: CLICK
+    site: [1]
+    ad: [1]
+    date: {
+      before: "2020-10-30"
+    }
+  }) {
+    id
+  }
+}
+
+mutation createEvent {
+  createEvent(input: {
+    type: CLICK
+    data: {
+      user: David
+    }
+    site: 1
+    ad: 1
+  }) {
+    id
+    type
+  }
+}

@@ -1,0 +1,31 @@
+query getGeo {
+  geo(id: [1]) {
+    id
+    name
+  }
+}
+
+query getGeoByIP {
+  getGeoByIP(address: "198.162.1.1") {
+    id
+    name
+  }
+}
+
+mutation createGeo {
+  createGeo(input: {
+    name: "Geo5"
+  }) {
+    id
+    name
+  }
+}
+
+mutation updateGeo {
+  updateGeo(id: 6, input: {
+    name: "GEO_6"
+  }) {
+    id
+    name
+  }
+}

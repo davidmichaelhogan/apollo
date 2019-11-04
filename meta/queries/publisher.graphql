@@ -1,0 +1,35 @@
+query getPublisher {
+  publisher(id: [1]) {
+    id
+    sites {
+      id
+    }
+  }
+}
+
+query getPublishers {
+  publishers(sites: [1,2]) {
+    id
+    name
+  }
+}
+
+mutation createPublisher {
+  createPublisher(input: {
+    name: "pub4",
+    description: "this is the description"
+  }) {
+    id
+    name
+  }
+}
+
+mutation updatePublisher {
+  updatePublisher(id: 2, input: {
+    name: "pub2",
+    description: "this is the description"
+  }) {
+    id
+    name
+  }
+}

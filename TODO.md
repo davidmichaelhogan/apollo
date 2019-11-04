@@ -1,15 +1,14 @@
 ## TO DO
-
-- ad try catch / error handling !!
+- create a bunch of site methods like: adsShown
 - remove if statements
 - update README
+- add findGeoByIP method to Geo resolver
 - convert sequelize models and migrations to ES6
 - implement resolver types and uncomment interfaces for Ads and PaymentInfo
 - add advanced resolvers to backwards fetch category -> site / ad info
 - add category text -> enum mapping
 
 ## THOUGHTS
-
 - when an ad is requested it is taken from the ad search table and moved to the ad history table.
   This will keep the number of ads in the client facing table low (quick search).
 - Ad frequency calculations - when a campaign is created, times are chosen to show ads and a complete timeframe with total
@@ -26,3 +25,7 @@
 - Live monitoring continued - another screen within the dashboard can view live user actions (design would be look like an
   embedded phone with the current page the user is on and all of their actions will be streamed). Client will open a web-socket
   with the AI engine. As the user actions are streamed to the engine, they will also be routed to the corresponding customer dash.
+
+## LEAVING OFF
+ - I'm leaving off at the latest TODO: update site queries with more advanced options
+ - I think after that you should just get through as many TODO items as you can and then start on the UI!!!

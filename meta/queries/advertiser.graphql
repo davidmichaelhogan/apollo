@@ -1,0 +1,45 @@
+query getAdvertiser {
+  advertiser(id: [1]) {
+    id
+    campaigns {
+      id
+      name
+    }
+    ads {
+      id
+      attributes
+    }
+  }
+}
+
+query getAdvertisers {
+  advertisers {
+    id
+  }
+}
+
+mutation createAdvertiser {
+  createAdvertiser(input: {
+    name: "advertiser",
+    description: "this is the description"
+  }) {
+    id
+    name
+  }
+}
+
+mutation updateAdvertiser {
+  updateAdvertiser(id: 1, input: {
+    name: "advertiser1",
+    description: "this is the description"
+    campaigns: [1,2,3]
+  }) {
+    id
+    name
+    campaigns {
+      id
+      name
+    }
+  }
+}
+

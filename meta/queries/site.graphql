@@ -1,0 +1,45 @@
+query getSite {
+  site(id: [1, 2]) {
+    id
+    name
+  }
+}
+
+query publisherSites {
+  publisherSites(publisher: 1) {
+    id
+    name
+  }
+}
+
+mutation createSite {
+  createSite(input: {
+    name: "sitesite"
+  }) {
+    id
+    name
+    categories {
+      id
+      name
+    }
+  }
+}
+
+mutation updateSite {
+  updateSite(id: 5, input: {
+    name: "SITE_4"
+    publisher: 1
+    categories: [1,2,3]
+  }) {
+    id
+    name
+    publisher {
+      id
+      name
+    }
+    categories {
+      id
+      name
+    }
+  }
+}

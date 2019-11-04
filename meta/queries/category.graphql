@@ -1,0 +1,26 @@
+query getCategory {
+  category(id: [1]) {
+    id
+    name
+  }
+}
+
+query getCategories {
+  categories(name: "cat") {
+    id
+    name
+  }
+}
+
+mutation createCategories {
+  createCategories(names: [
+    "CATEGORY_1"
+    "CATEGORY_2"
+    "CATEGORY_3"
+    "CATEGORY_4"
+    "CATEGORY_5"
+  ]) {
+    id
+    name
+  }
+}

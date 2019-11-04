@@ -1,0 +1,53 @@
+query getAd {
+  ad(id: [1]) {
+    id
+	}
+}
+
+query getAds {
+  ads(input: {
+    # id: [1,2]
+    campaign: [1]
+    # geo: [1,2,3]
+    # adType: [APOLLO, OTHER]
+  }) {
+    id
+  }
+}
+
+mutation displayAd {
+  displayAd(input: {
+    geo: 1
+    category: 1
+    site: 1
+  }) {
+    id
+    adType
+    attributes
+  }
+}
+mutation updateAd {
+  updateAd(id: 1, input: {
+    categories: [1,2,3]
+    geos: [1,2,3]
+    campaign: 1
+    adType: APOLLO
+  }) {
+    id
+    adType
+    categories {
+      id
+    }
+    advertiser {
+      id
+      name
+    }
+    campaign {
+      id
+      name
+    }
+    geos {
+      id
+    }
+  }
+}

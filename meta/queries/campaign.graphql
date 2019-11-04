@@ -1,0 +1,56 @@
+query getCampaign {
+  campaign(id: [1]) {
+    id
+    name
+    ads {
+      id
+    }
+    advertiser {
+      id
+    }
+  }
+}
+
+query getCampaigns {
+  campaigns(input: {
+    id: [1,2]
+    isActive: true
+    startDate: {
+      before: "2019-10-30 20:10:35"
+    }
+    cost: {
+      gte: 100
+    }
+  }) {
+    id
+    name
+  }
+}
+
+mutation createCampaign {
+  createCampaign(input: {
+    name: "new campaign"
+    description: "this is new"
+    advertiser: 1
+    startDate: "2019-10-15 20:10:35"
+    endDate: "2019-11-15 20:10:35"
+    cost: 1000
+    cpm: 8
+  }) {
+    id
+    advertiser {
+      id
+    }
+  }
+}
+
+mutation updateCampaign {
+  updateCampaign(id: 1, input: {
+    ads: [1,2,3]
+  }) {
+    id
+    ads {
+      id
+    }
+  }
+}
