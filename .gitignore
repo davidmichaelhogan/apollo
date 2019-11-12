@@ -1,3 +1,9 @@
+# MY STUFF
+.env
+.editorconfig
+.eslintrc
+.prettierrc
+
 # Logs
 logs
 *.log
@@ -37,11 +43,5 @@ node_modules
 
 #SERVERLESS STUFF
 admin.env
-.env
 _meta
 .serverless
-
-#MY STUFF
-# **/.env
-**/.editorconfig
-**/.eslintrc
