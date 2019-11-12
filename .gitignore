@@ -42,6 +42,6 @@ _meta
 .serverless
 
 #MY STUFF
-**/.env
+# **/.env
 **/.editorconfig
 **/.eslintrc
