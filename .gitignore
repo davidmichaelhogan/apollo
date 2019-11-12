@@ -40,3 +40,8 @@ admin.env
 .env
 _meta
 .serverless
+
+#MY STUFF
+**/.env
+**/.editorconfig
+**/.eslintrc

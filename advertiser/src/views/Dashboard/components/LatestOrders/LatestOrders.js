@@ -24,6 +24,9 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import mockData from './data';
 import { StatusBullet } from 'components';
 
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
@@ -50,12 +53,26 @@ const statusColors = {
   refunded: 'danger'
 };
 
+const QUERY = gql`
+  {
+    ad(id: [1]) {
+      id
+    }
+  }
+`;
+
 const LatestOrders = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   const [orders] = useState(mockData);
+  const { loading, error, data } = useQuery(QUERY);
+
+  if (loading) console.log('loading:', loading);
+  if (error) console.log('error:', error);
+  if (data) console.log('ads:', data);
+
 
   return (
     <Card
