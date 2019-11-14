@@ -1,5 +1,5 @@
 // ------------------------------------------------------//
-// App Routes File | Starter Dashboard
+// App Routes File | Dashboard
 // Apollo V2
 // David Michael Hogan | November 13, 2019 | Updated:
 // ------------------------------------------------------//

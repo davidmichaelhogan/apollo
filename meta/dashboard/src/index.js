@@ -1,5 +1,5 @@
 // ------------------------------------------------------//
-// App Index File | Starter Dashboard
+// App Index File | Dashboard
 // Apollo V2
 // David Michael Hogan | November 13, 2019 | Updated:
 // ------------------------------------------------------//

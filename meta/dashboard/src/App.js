@@ -1,5 +1,5 @@
 // ------------------------------------------------------//
-// App Container Component | Starter Dashboard
+// App Container Component | Dashboard
 // Apollo V2
 // David Michael Hogan | November 13, 2019 | Updated:
 // ------------------------------------------------------//
