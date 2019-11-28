@@ -108,6 +108,11 @@ const Campaign = {
     },
     advertiser: async (parent, args, { dataSources: { Advertiser } }) => {
       return await Advertiser.findOne({ where: { id: parent.AdvertiserId } });
+    },
+    events: async (parent, args, { dataSources: { Ad, Event }}) => {
+      const ads = await Ad.findAll({ where: { CampaignId: parent.id }, include: [{ model: Event }]});
+      const eventsArray = ads.map(ad => ad.Events);
+      return eventsArray.flat();
     }
   }
 };

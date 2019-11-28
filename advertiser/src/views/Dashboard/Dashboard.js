@@ -1,3 +1,9 @@
+// ------------------------------------------------------//
+// Main Dashboard Component | Dashboard
+// Apollo V2
+// David Michael Hogan | November 14, 2019 | Updated:
+// ------------------------------------------------------//
+
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
@@ -9,8 +15,7 @@ import {
   TotalProfit,
   LatestSales,
   UsersByDevice,
-  LatestProducts,
-  LatestOrders
+  CampaignsOverview,
 } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +26,11 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  // const { loading, error, data } = useQuery(ALL_ADS);
+
+  // if (loading) console.log('loading...');
+  // if (error) console.log('ERROR', error);
+  // if (data) console.log(data);
 
   return (
     <div className={classes.root}>
@@ -84,21 +94,12 @@ const Dashboard = () => {
         </Grid>
         <Grid
           item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <LatestProducts />
-        </Grid>
-        <Grid
-          item
-          lg={8}
+          lg={12}
           md={12}
-          xl={9}
+          xl={12}
           xs={12}
         >
-          <LatestOrders />
+          <CampaignsOverview />
         </Grid>
       </Grid>
     </div>
@@ -106,3 +107,19 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// ------------------------------------------------------//
+// GRAPH QUERIES
+// ------------------------------------------------------//
+// const ALL_ADS = gql`
+//   {
+//     ad {
+//       id
+//       adType
+//       advertiser {
+//         name
+//       }
+//     }
+//   }
+// `;
+// ------------------------------------------------------//

@@ -11,6 +11,7 @@ type Campaign {
   balance: Float
   ads: [Ad]
   advertiser: Advertiser
+  events: [Event]
 }
 
 type Query {

@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2, 0)
   },
   nav: {
-    marginBottom: 'auto'
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -48,31 +48,16 @@ const Sidebar = props => {
       href: '/dashboard',
       icon: <DashboardIcon />
     },
-    // {
-    //   title: 'Users',
-    //   href: '/users',
-    //   icon: <PeopleIcon />
-    // },
-    // {
-    //   title: 'Products',
-    //   href: '/products',
-    //   icon: <ShoppingBasketIcon />
-    // },
-    // {
-    //   title: 'Authentication',
-    //   href: '/sign-in',
-    //   icon: <LockOpenIcon />
-    // },
-    // {
-    //   title: 'Typography',
-    //   href: '/typography',
-    //   icon: <TextFieldsIcon />
-    // },
-    // {
-    //   title: 'Icons',
-    //   href: '/icons',
-    //   icon: <ImageIcon />
-    // },
+    {
+      title: 'Users',
+      href: '/users',
+      icon: <PeopleIcon />
+    },
+    {
+      title: 'Sign In',
+      href: '/sign-in',
+      icon: <LockOpenIcon />
+    },
     {
       title: 'Account',
       href: '/account',

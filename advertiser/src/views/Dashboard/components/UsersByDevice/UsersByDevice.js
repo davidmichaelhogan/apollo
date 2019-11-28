@@ -16,28 +16,6 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import TabletMacIcon from '@material-ui/icons/TabletMac';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: '100%'
-  },
-  chartContainer: {
-    position: 'relative',
-    height: '300px'
-  },
-  stats: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  device: {
-    textAlign: 'center',
-    padding: theme.spacing(1)
-  },
-  deviceIcon: {
-    color: theme.palette.icon
-  }
-}));
-
 const UsersByDevice = props => {
   const { className, ...rest } = props;
 
@@ -47,10 +25,10 @@ const UsersByDevice = props => {
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [50, 50],
         backgroundColor: [
           theme.palette.primary.main,
-          theme.palette.error.main,
+          // theme.palette.error.main,
           theme.palette.warning.main
         ],
         borderWidth: 8,
@@ -58,7 +36,7 @@ const UsersByDevice = props => {
         hoverBorderColor: theme.palette.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['Remaining', 'Delivered']
   };
 
   const options = {
@@ -152,3 +130,25 @@ UsersByDevice.propTypes = {
 };
 
 export default UsersByDevice;
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    height: '100%'
+  },
+  chartContainer: {
+    position: 'relative',
+    height: '300px'
+  },
+  stats: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  device: {
+    textAlign: 'center',
+    padding: theme.spacing(1)
+  },
+  deviceIcon: {
+    color: theme.palette.icon
+  }
+}));

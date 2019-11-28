@@ -1,7 +1,9 @@
 {
-  "name": "advertiser-dashboard",
+  "name": "apollo-advertiser-dashboard",
+  "author": "DMH",
+  "email": "david@launchapollo.com",
   "licence": "MIT",
-  "version": "0.3.0",
+  "version": "2.1.0",
   "private": false,
   "scripts": {
     "start": "react-scripts start",

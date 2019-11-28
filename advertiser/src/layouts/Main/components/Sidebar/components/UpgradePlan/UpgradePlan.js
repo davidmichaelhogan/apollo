@@ -6,7 +6,7 @@ import { Typography, Button, colors } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // backgroundColor: colors.grey[50]
+    backgroundColor: colors.grey[50]
   },
   media: {
     paddingTop: theme.spacing(2),
@@ -37,7 +37,7 @@ const UpgradePlan = props => {
       {...rest}
       className={clsx(classes.root, className)}
     >
-      {/* <div className={classes.media}>
+      <div className={classes.media}>
         <img
           alt="Upgrade to PRO"
           src="/images/undraw_resume_folder_2_arse.svg"
@@ -57,15 +57,15 @@ const UpgradePlan = props => {
         >
           Upgrade to Devias Kit PRO and get even more components
         </Typography>
-      </div> */}
+      </div>
       <div className={classes.actions}>
         <Button
           color="primary"
           component="a"
-          href="/"
-          // variant="contained"
+          href="https://devias.io/products/devias-kit-pro"
+          variant="contained"
         >
-          Sign Out
+          Upgrade
         </Button>
       </div>
     </div>
