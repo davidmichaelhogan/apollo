@@ -26,7 +26,7 @@
     "babel-loader": "^8.0.6",
     "graphql-tag": "^2.10.1",
     "sequelize-cli": "^5.5.1",
-    "serverless": "^1.54.0",
+    "serverless": "^3.25.1",
     "serverless-offline": "^5.12.0",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.41.2",
